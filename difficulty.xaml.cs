@@ -1,40 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
-namespace DiplomaLol
-{
-    /// <summary>
-    /// Логика взаимодействия для difficulty.xaml
-    /// </summary>
-    public partial class Difficulty : Window
-    {
-        public Difficulty()
-        {
+namespace DiplomaLol {
+
+    public partial class Difficulty : Window {
+        public int Diff { get; set; }
+        public Difficulty() {
             InitializeComponent();
         }
 
-        private void Setup_difficult(object sender, RoutedEventArgs e)
-        {
-            if (radbut1.IsChecked == true)      MainWindow.diff = 2;
-            else if (radbut2.IsChecked == true) MainWindow.diff= 4;
-            else                                MainWindow.diff= 6;
-            this.DialogResult = true;
+        private void Setup_difficult(object sender, RoutedEventArgs e) {
+            if (radbut1.IsChecked == true) {
+                Diff = 2;
+            } else if (radbut2.IsChecked == true) {
+                Diff = 4;
+            } else {
+                Diff = 6;
+            }
+            DialogResult = true;
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = false;
+        private void Back_Click(object sender, RoutedEventArgs e) {
+            DialogResult = false;
         }
 
     }

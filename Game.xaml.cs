@@ -24,9 +24,11 @@ namespace DiplomaLol
     {
         readonly DispatcherTimer dt = new DispatcherTimer();
         readonly Stopwatch sw = new Stopwatch();
-        string currentTime = string.Empty;
-        int days = 0;
-        int weeks = 0;
+        string currentTime;
+        int days;
+        int weeks;
+
+        private int difficulty;
 
         int AmountOfProducts = 5;   // Количество товаров
         int Cash = 1000;    // Баланс
@@ -36,9 +38,10 @@ namespace DiplomaLol
         int ModPrevious = 0;    // Модификатор цены предыдущей недели для псевдорандома
 
         private int Price = 4;
-        public Game()
+        public Game(int difficulty)
         {
             InitializeComponent();
+            this.difficulty = difficulty;
             currentTime = "0 weeks 0 days";
             dt.Tick += new EventHandler(Dt_Tick);
             dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
@@ -51,7 +54,7 @@ namespace DiplomaLol
                 TimeSpan ts = sw.Elapsed;
                 days = ts.Seconds;
                 currentTime = String.Format("{0} weeks {1} days", weeks, days);
-                if (((ts.Seconds % 7) == 0) && (ts.Seconds >0)) // Круг выполнения цикла While
+                if (ts.Seconds % 7 == 0 && ts.Seconds >0) // Круг выполнения цикла While
                 {
                     weeks += 1;
                     sw.Restart();
@@ -106,10 +109,10 @@ namespace DiplomaLol
         {
             Cash -= Rent;
             var rand = new Random();    // Создание экземпляра класса Random для получения функция рандома
-            Mod = rand.Next((-1 * MainWindow.diff), (1 * MainWindow.diff + 1)); // Присвоение Модификатору случайного значения из диапазона
+            Mod = rand.Next(-1 * difficulty, 1 * difficulty + 1); // Присвоение Модификатору случайного значения из диапазона
             while (Mod == ModPrevious)  // Пока в предыдущей неделе был такой же модификатор
             {
-                Mod = rand.Next((-1 * MainWindow.diff), (1 * MainWindow.diff + 1)); // Реролл
+                Mod = rand.Next(-1 * difficulty, 1 * difficulty + 1); // Реролл
             }
 
             Price += Mod;   // Меняем цену на новую
@@ -128,7 +131,7 @@ namespace DiplomaLol
 
         private void Buy(object sender, RoutedEventArgs e)
         {
-            if ((AmountOfProducts + (int)sliderincome.Value) > SizeOfStorage)
+            if (AmountOfProducts + (int)sliderincome.Value > SizeOfStorage)
             {
                 MessageBox.Show("Увеличьте размер склада. Не помещается.");
             } 
