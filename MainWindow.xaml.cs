@@ -25,21 +25,19 @@ namespace DiplomaLol
 
         //double money;
         //bool gameOver;
-        public static int diff;
 
         public MainWindow()
         {
             InitializeComponent();
- 
         }
 
         private void StartClick(object sender, RoutedEventArgs e)
         {
-            Game game = new Game();     // экземпляр Game.xaml для открытия во фрейме с игровой логикой
             var difficulty = new Difficulty();  // сложность, которую мы получаем из окна difficulty
             difficulty.ShowDialog();
             if (difficulty.DialogResult == true)
             {
+                var game = new Game(difficulty.Diff);         // экземпляр Game.xaml для открытия во фрейме с игровой логикой
                 Name_frame.NavigationService.Navigate(game);
             }
             
@@ -53,8 +51,7 @@ namespace DiplomaLol
 
         private void ExitClick(object sender, RoutedEventArgs e)
         {
-            Application.Current.MainWindow.Close(); // Закрытие окна
-                                                    //      Environment.Exit(0);    // Используем это, т.к. при использовании this->Close или Application.Close - приложение остается в диспетчере   задач
+            Application.Current.Shutdown(); // Закрытие окна
         }
     }
 }
