@@ -14,47 +14,38 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DiplomaLol
-{
+namespace DiplomaLol {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
-    {
+    public partial class MainWindow : Window {
         //DispatcherTimer gameTimer = new DispatcherTimer();
 
         //double money;
         //bool gameOver;
-        public static int diff;
 
-        public MainWindow()
-        {
+        public MainWindow() {
             InitializeComponent();
- 
+
         }
 
-        private void StartClick(object sender, RoutedEventArgs e)
-        {
-            Game game = new Game();     // экземпляр Game.xaml для открытия во фрейме с игровой логикой
+        private void StartClick(object sender, RoutedEventArgs e) {
             var difficulty = new Difficulty();  // сложность, которую мы получаем из окна difficulty
             difficulty.ShowDialog();
-            if (difficulty.DialogResult == true)
-            {
+            if (difficulty.DialogResult == true) {
+                var game = new Game(difficulty.Difficulty1);
                 Name_frame.NavigationService.Navigate(game);
             }
-            
+
         }
 
-        private void CreditsClick(object sender, RoutedEventArgs e)
-        {
-            Credits c1 = new Credits();
+        private void CreditsClick(object sender, RoutedEventArgs e) {
+            var c1 = new Credits();
             Name_frame.NavigationService.Navigate(c1);
         }
 
-        private void ExitClick(object sender, RoutedEventArgs e)
-        {
-            Application.Current.MainWindow.Close(); // Закрытие окна
-                                                    //      Environment.Exit(0);    // Используем это, т.к. при использовании this->Close или Application.Close - приложение остается в диспетчере   задач
+        private void ExitClick(object sender, RoutedEventArgs e) {
+            Application.Current.Shutdown(); // Выход
         }
     }
 }

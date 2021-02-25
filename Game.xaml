@@ -63,7 +63,7 @@
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.ColumnSpan="3" Grid.Row="2" >
             <Button x:Name="startbtn" Content="Start" FontSize="30" Click="Startbtn_Click" MinWidth="80" ></Button>
             <Button x:Name="stopbtn" Content="Stop" FontSize="30" Click="Stopbtn_Click" Margin="20,0,30,0" MinWidth="80"></Button>
-            <TextBlock x:Name="clocktxtblock" FontSize="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="250"></TextBlock>
+            <TextBlock x:Name="clocktxtblock" FontSize="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="250"/>
             <TextBlock x:Name="cashtxtblock" FontSize="30" MinWidth="150"/>
         </StackPanel>
     </Grid>
