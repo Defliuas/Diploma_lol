@@ -1,0 +1,66 @@
+﻿<Window x:Class="DiplomaLol.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Storage Control" Height="600" Width="1000" ResizeMode="NoResize">
+
+    <Window.Resources>
+        <ResourceDictionary Source="Dictionary.xaml" />
+    </Window.Resources>
+
+    <Window.Background>
+        <ImageBrush ImageSource="/images/back.jpg" Stretch="UniformToFill"></ImageBrush>
+    </Window.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.40*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="Name_stackpanel" Grid.Row="1" Grid.Column="1">
+            <TextBlock Height="80" TextWrapping="Wrap" Foreground="White" FontFamily="Broadway" FontSize="20" TextAlignment="Center">Добро пожаловать в игру, развивающую навыки управления предприятием:</TextBlock>
+            <TextBlock Foreground="White" FontFamily="Segoe Script" FontSize="42" TextAlignment="Center">Storage Control</TextBlock>
+            <Button Name="Name_startgame" Click="StartClick" Margin="0,40,0,30" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" FontFamily="Segoe Script" FontSize="32">Start Game</Button>
+            <Button Name="Name_credits" Click="CreditsClick" Margin="0,0,0,30" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" FontFamily="Segoe Script" FontSize="28">Credits</Button>
+            <Button Name="Name_exit" Click="ExitClick" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" FontFamily="Segoe script" FontSize="24">Exit</Button>
+        </StackPanel>
+
+        <Frame x:Name="Name_frame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="3" Foreground="White"/>
+       
+    </Grid>
+</Window>
+
+<!--<Window x:Class="DiplomaLol.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Storage Control" Height="600" Width="1000" ResizeMode="NoResize">
+
+    <Window.Resources>
+        <ResourceDictionary Source="Dictionary.xaml" />
+    </Window.Resources>
+
+    <Window.Background>
+        <ImageBrush ImageSource="/images/back.jpg" Stretch="UniformToFill"></ImageBrush>
+    </Window.Background>
+    <Grid>
+        <Frame x:Name="Name_frame" Margin="0,0,0,0" NavigationUIVisibility="Hidden" Source="/Credits.xaml" Foreground="White"/>
+        <StackPanel Orientation="Horizontal" Height="80" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <Button Content="Exit" Click="Exit_Click" MinWidth="200" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="White" FontSize="35" FontFamily="BankGothic Md BT"/>
+            <Button Content="Start Game" Click="StartGame_Click" MinWidth="200" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="White" FontSize="35" Margin="120,0,120,0" FontFamily="BankGothic Md BT"/>
+            <Button Content="Details >>" Click="Credits_Click" MinWidth="150"  BorderBrush="{x:Null}" Background="{x:Null}" Foreground="White" FontSize="23" FontFamily="BankGothic Md BT"/>
+        </StackPanel>
+
+    </Grid>
+    </Window> -->
