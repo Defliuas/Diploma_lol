@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace DiplomaLol
 {
-    /// <summary>
-    /// Логика взаимодействия для Credits.xaml
-    /// </summary>
     public partial class Credits : Page
     {
         public Credits()

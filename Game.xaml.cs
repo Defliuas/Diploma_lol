@@ -1,25 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
+using OxyPlot;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace DiplomaLol
 {
-    /// <summary>
-    /// Логика взаимодействия для Game.xaml
-    /// </summary>
+
+    class MainViewModel
+    {
+        public MainViewModel()
+        {      
+           var GraphPoints = new ObservableCollection<DataPoint>
+            {
+                new DataPoint(0, 4),
+                new DataPoint(10, 13),
+                new DataPoint(20, 15),
+                new DataPoint(30, 16),
+                new DataPoint(40, 12),
+                new DataPoint(50, 12)
+            };
+        }
+
+        public string Title { get; private set; }
+        public IList<DataPoint> GraphPoints { get; set; }
+    }
+
     public partial class Game : Page
     {
         readonly DispatcherTimer dt = new DispatcherTimer();
@@ -35,9 +44,13 @@ namespace DiplomaLol
         int SizeOfStorage = 10; // Размер хранилища
         int Rent = 100; // Плата за аренду
         int Mod;    // Модификатор цены
-        int ModPrevious = 0;    // Модификатор цены предыдущей недели для псевдорандома
-
+        int ModPrevious;    // Модификатор цены предыдущей недели для псевдорандома
         private int Price = 4;
+
+         ObservableCollection <MainViewModel> graphPoints= new ObservableCollection<MainViewModel>();   // создаю лист из класса ебаная хуйня блять
+        
+      //  GraphPoints = new ObservableCollection<int,int> {}
+
         public Game(int difficulty)
         {
             InitializeComponent();
@@ -45,7 +58,15 @@ namespace DiplomaLol
             currentTime = "0 weeks 0 days";
             dt.Tick += new EventHandler(Dt_Tick);
             dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
-            
+
+            clocktxtblock.Text = "0 weeks 0 days";
+            cashtxtblock.Text = $"$ {Cash}";
+            progressBar.Minimum = 0;                // Иллюстрация
+            progressBar.Maximum = SizeOfStorage;    // Наполненности
+            progressBar.Value = AmountOfProducts;   // Склада
+            storageinfo.Text = $"Products storaged: {AmountOfProducts} \nSize of Storage: {SizeOfStorage}.";
+            cashinfo.Text = $"Rent: {Rent}; Price: {Price}.";
+
         }
         void Dt_Tick(object sender, EventArgs e)
         {
@@ -62,14 +83,16 @@ namespace DiplomaLol
                 }
                 cashtxtblock.Text = $"$ {Cash}";
                 clocktxtblock.Text = currentTime;   // Вывод времени на экран
-                storageinfo.Text = $"Products storaged: {AmountOfProducts} Size of Storage: {SizeOfStorage}."; //нужно сделать update по клику
+                storageinfo.Text = $"Products storaged: {AmountOfProducts} \nSize of Storage: {SizeOfStorage}."; //нужно сделать update по клику
                 cashinfo.Text = $"Rent: {Rent}; Price: {Price}."; //нужно сделать update по клику
-                                                                                        // привязка нахуй не всралась, я сделал по таймингу миллисекунд
+                                                                // привязка нахуй не всралась, я сделал по таймингу миллисекунд
                 progressBar.Minimum = 0;                // Иллюстрация
                 progressBar.Maximum = SizeOfStorage;    // Наполненности
                 progressBar.Value = AmountOfProducts;   // Склада
                 
                 slidersell.Maximum = AmountOfProducts;
+                //   plotGraph
+                MainViewModel.GraphPoints.Add(new DataPoint(days, Price));
             }
         }
 
@@ -107,9 +130,11 @@ namespace DiplomaLol
         }
         private void EndOfWeek()
         {
-            Cash -= Rent;
+            Cash -= Rent;   // Расходы на аренду
+
             var rand = new Random();    // Создание экземпляра класса Random для получения функция рандома
             Mod = rand.Next(-1 * difficulty, 1 * difficulty + 1); // Присвоение Модификатору случайного значения из диапазона
+           
             while (Mod == ModPrevious)  // Пока в предыдущей неделе был такой же модификатор
             {
                 Mod = rand.Next(-1 * difficulty, 1 * difficulty + 1); // Реролл
@@ -118,9 +143,20 @@ namespace DiplomaLol
             Price += Mod;   // Меняем цену на новую
             ModPrevious = Mod;  // Перезаписываем Модификатор для следующего цикла
 
-            if (Price < 0)  // Проверка на отрицательную стоимость
+            if (weeks % 8 == 0)
+            {
+                Price += 2;
+            }
+
+            if (weeks % 16 == 0)
+            {
+                Price /= 2;
+            }
+
+            if (Price <= 0)  // Проверка на отрицательную стоимость
             {
                 Price = 1;
+                ModPrevious = 1;
             }
 
             if (Cash < -1000)   // Условие проигрыша
@@ -129,7 +165,7 @@ namespace DiplomaLol
                 MessageBox.Show("Вы проиграли.");
             }
 
-            if (Cash >= 6000) // Условие победы
+            if (Cash >= 8000) // Условие победы
             {
                 sw.Stop();
                 MessageBox.Show("Поздравляю. Вы справились с задачей.");
@@ -148,11 +184,9 @@ namespace DiplomaLol
                 Cash -= Price * 50 * (int) sliderincome.Value;
             }
         }
-
         private void Sell(object sender, RoutedEventArgs e)
         {
             AmountOfProducts -= (int)slidersell.Value;
-
             Cash += Price * 50 * (int)slidersell.Value;
         }
     }
