@@ -7,9 +7,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1000" 
       Title="Game">
-    <Page.DataContext>
-        <local:MainViewModel/>
-    </Page.DataContext>
 
     <Page.Background>
         <ImageBrush ImageSource="/images/back.jpg" Stretch="UniformToFill"></ImageBrush>
@@ -67,9 +64,13 @@
         
         <!-- ПРАВАЯ ЧАСТЬ-->
         <StackPanel Grid.Row="1" Grid.Column="2">
-            <oxy:Plot Title="Graph of Price" Background="{x:Null}" Height="200">
+            <oxy:Plot Name="plot" Title="Graph of Price" Background="{x:Null}" Height="200">
+                <oxy:Plot.Axes>
+                    <oxy:LinearAxis Position="Left" Minimum="0"/>
+                    <oxy:LinearAxis Position="Bottom" Minimum="0" Maximum="{Binding MaximumWeeksAxis}"/>
+                </oxy:Plot.Axes>
                 <oxy:Plot.Series>
-                    <oxy:LineSeries ItemsSource="{Binding GraphPoints}"/>
+                    <oxy:LineSeries ItemsSource="{Binding DataPoints}"/>
                 </oxy:Plot.Series>
             </oxy:Plot>
         </StackPanel>
