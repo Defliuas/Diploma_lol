@@ -52,7 +52,7 @@
             <TextBlock x:Name="cashinfo" FontSize="20" />
         </StackPanel>
 
-        <Rectangle x:Name="rectanglestorage" Fill="LightGray" Width="100" Height="170" RadiusX="15" RadiusY="15" Margin="10" Grid.Column="1" Grid.Row="1"/>
+        <Rectangle x:Name="rectanglestorage" Fill="LightGray" Width="100" Height="170" RadiusX="15" RadiusY="15" Grid.Column="1" Grid.Row="1"/>
         <ProgressBar x:Name="progressBar"  Orientation="Vertical" Grid.Column="1" Grid.Row="1" Height="150"
                      Width="{Binding ElementName=rectanglestorage, Path=Width, UpdateSourceTrigger=PropertyChanged}"/>
 
