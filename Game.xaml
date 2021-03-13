@@ -48,7 +48,7 @@
 
         <!-- ЦЕНТРАЛЬНАЯ ЧАСТЬ-->
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <TextBlock x:Name="storageinfo" FontSize="20" Height="60"/>
+            <TextBlock x:Name="storageinfo" FontSize="20" Height="80"/>
             <TextBlock x:Name="cashinfo" FontSize="20" />
         </StackPanel>
 

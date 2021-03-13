@@ -15,7 +15,7 @@ namespace DiplomaLol
             var rand = new Random();    // Создание экземпляра класса Random для получения функция рандома
             Mod = rand.Next(-1 * difficulty, 1 * difficulty + 1); // Присвоение Модификатору случайного значения из диапазона
 
-            while (Mod == ModPrevious)  // Пока в предыдущей неделе был такой же модификатор
+            while (Mod == 0 && ModPrevious == 0)  // Пока в предыдущей неделе был такой же модификатор
             {
                 Mod = rand.Next(-1 * difficulty, 1 * difficulty + 1); // Реролл
             }
@@ -23,10 +23,25 @@ namespace DiplomaLol
             Price += Mod;   // Меняем цену на новую
             ModPrevious = Mod;  // Перезаписываем Модификатор для следующего цикла
 
+            if (required < 0)
+            {
+                Price -= 1; // Если продали больше требуемых товаров - переполнение рынка - снижение цены
+            } else if (required == 0)
+            {
+                Price += 1; // Если продали идеально, то награждается увеличением стоимости на 1
+            }
+            else
+            {
+                Price += rand.Next(-1, 2); // Назначается случайный штраф, который равен либо повышению цены из-за недостатка товаров
+                // Или штраф за неудовлетворение потребностей, который снижает на 1 ценность
+            }
+
+            required = rand.Next(0, 4);
 
             if (weeks % 8 == 0)
             {
-                Price += 2;
+                Price -= Mod;
+                Price += 3;
             }
 
             if (weeks % 16 == 0)
@@ -36,10 +51,10 @@ namespace DiplomaLol
 
             if (Price <= 0)  // Проверка на отрицательную стоимость
             {
-                Price = 1;
-                ModPrevious = 1;
+                Price = 2;
+                ModPrevious = 0;
             }
-
+            
             MaximumWeeksAxis++;
             dataPoints.Add(new DataPoint(weeks, Price));
 
@@ -47,12 +62,15 @@ namespace DiplomaLol
             {
                 sw.Stop();
                 MessageBox.Show("Вы проиграли.");
+                this.Visibility = Visibility.Collapsed;
             }
 
             if (Cash >= 8000) // Условие победы
             {
                 sw.Stop();
-                MessageBox.Show("Поздравляю. Вы справились с задачей.");
+                MessageBox.Show("Поздравляю. Вы справились с задачей. \nНажмите Ок, чтобы закрыть приложение");
+            //  this.Visibility = Visibility.Collapsed;
+                Application.Current.Shutdown();
             }
         }
     }
