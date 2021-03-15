@@ -4,10 +4,24 @@
              xmlns:local="clr-namespace:DiplomaLol"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary>
+        <Style TargetType="{x:Type FrameworkElement}">
+            <Setter Property="Control.Foreground" Value="White"/>
+            <Setter Property="Control.Background" Value="Transparent"/>
+            <Setter Property="Control.BorderBrush" Value="Transparent"/>
+            <Setter Property="Control.FontFamily" Value="Segoe Script"/>
+            <Setter Property="Height" Value="Auto"/>
+        </Style>
+
+        <Style TargetType="Button"  BasedOn="{StaticResource {x:Type FrameworkElement}}">
+            <Setter Property="Control.FontSize" Value="30"/>
+        </Style>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type FrameworkElement}}"/>
+        <Style TargetType="Separator" BasedOn="{StaticResource {x:Type FrameworkElement}}"/>
+
+<!--<ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Dictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        </ResourceDictionary>-->
     </Application.Resources>
 </Application>

@@ -5,14 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiplomaLol"
         mc:Ignorable="d"
-        Title="Difficulty" Height="250" Width="400" Background="#FF67D4BF">
+        Title="Difficulty" Height="250" Width="400">
+    <Window.Background>
+        <ImageBrush ImageSource="/images/dialogPic.jpg" Stretch="UniformToFill" AlignmentY="Top"></ImageBrush>
+    </Window.Background>
+
     <Window.Resources>
-        <Style TargetType="local:Difficulty">
+        <Style TargetType="{x:Type local:Difficulty}">
             <Setter Property="Control.FontFamily" Value="Segoe Script"/>
             <Setter Property="Control.FontSize" Value="16"/>
             <Setter Property="Control.Foreground" Value="Black"/>
+            <Setter Property="Control.FontWeight" Value="UltraBold"></Setter>
         </Style>
 </Window.Resources>
+    
 
     <Grid>
         <StackPanel Margin="5">
@@ -22,8 +28,8 @@
             <RadioButton x:Name="radbut3" Content="Тяжелая"/>
             
             <StackPanel Orientation="Horizontal" Margin="0,50,0,0" HorizontalAlignment="Center">
-                <Button x:Name="Back_Name" Click="Back_Click" Content="Back" Width="150" Margin="0,0,40,0"/>
-                <Button x:Name="Ok_Name" Click="Setup_difficult" Content="Начать игру" Width="150" />
+                <Button x:Name="Back_Name" Click="Back_Click" Content="Back" FontSize="20" Margin="0,0,30,0"/>
+                <Button x:Name="Ok_Name" Click="Setup_difficult" Content="Начать игру" FontSize="20"/>
             </StackPanel>
         </StackPanel>
     </Grid>

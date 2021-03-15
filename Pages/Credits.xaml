@@ -7,16 +7,17 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="Credits">
-    
+
     <Page.Background>
         <ImageBrush ImageSource="/images/back.jpg" Stretch="UniformToFill"></ImageBrush>
     </Page.Background>
     <Grid>
         <StackPanel>
-        <TextBlock Text="О дипломной работе" Foreground="White" HorizontalAlignment="Center" FontSize="25" FontFamily="Segoe Print"/>
+        <TextBlock Text="О дипломной работе" HorizontalAlignment="Center"/>
             <TextBlock Width="800" Margin="0,40,0,0" Text="Данная работа была выполнена студентом 4 курса Московского Авиационного Института группы 424Бк-17 Бабарыкиным Даниилом.   
-                                                         Цель этой работы - приобрести навыки управления складом, используя минималистичную модель склада. Работа имеет 3 вида сложности, существуют возможности для победы и реализация проигрыша." Foreground="White" HorizontalAlignment="Stretch" FontSize="16" FontFamily="Segoe Print" TextWrapping="Wrap" LineHeight="10"/>
-        <Button Click="Name_BackToMenu" Margin="0,280,150,0" Height="30" Width="125" Content="Back" HorizontalAlignment="Right" />
+                                                         Цель этой работы - приобрести навыки управления складом, используя минималистичную модель склада. Работа имеет 3 вида сложности, существуют возможности для победы и реализация проигрыша." 
+                       HorizontalAlignment="Stretch" FontSize="22" TextWrapping="Wrap" LineHeight="10"/>
+        <Button Click="Name_BackToMenu" Margin="0,180,150,0" Content="Back" HorizontalAlignment="Right" />
         </StackPanel>
     </Grid>
 </Page>

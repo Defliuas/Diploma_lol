@@ -5,15 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
         mc:Ignorable="d"
-        Title="Storage Control" Height="600" Width="1000" ResizeMode="NoResize">
-
-    <Window.Resources>
-        <ResourceDictionary Source="Dictionary.xaml" />
-    </Window.Resources>
+        Title="Storage Control" Height="700" Width="1000" ResizeMode="NoResize">
 
     <Window.Background>
         <ImageBrush ImageSource="/images/back.jpg" Stretch="UniformToFill"></ImageBrush>
     </Window.Background>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.4*"/>
@@ -28,11 +25,14 @@
         </Grid.RowDefinitions>
 
         <StackPanel x:Name="Name_stackpanel" Grid.Row="1" Grid.Column="1">
-            <TextBlock Height="80" TextWrapping="Wrap" Foreground="White" FontFamily="Broadway" FontSize="20" TextAlignment="Center">Добро пожаловать в игру, развивающую навыки управления предприятием:</TextBlock>
-            <TextBlock Foreground="White" FontFamily="Segoe Script" FontSize="42" TextAlignment="Center">Storage Control</TextBlock>
-            <Button Name="Name_startgame" Click="StartClick" Margin="0,40,0,30" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" FontFamily="Segoe Script" FontSize="32">Start Game</Button>
-            <Button Name="Name_credits" Click="CreditsClick" Margin="0,0,0,30" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" FontFamily="Segoe Script" FontSize="28">Credits</Button>
-            <Button Name="Name_exit" Click="ExitClick" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" FontFamily="Segoe script" FontSize="24">Exit</Button>
+            <TextBlock Height="100" TextWrapping="Wrap" Foreground="White" FontFamily="Broadway" FontSize="26" TextAlignment="Center">Добро пожаловать в игру, развивающую навыки управления предприятием:</TextBlock>
+            <TextBlock TextAlignment="Center" FontSize="50">Storage Control</TextBlock>
+            <Separator Height="30"/>
+            <Button Name="Name_startgame" Click="StartClick" FontSize="36">Start Game</Button>
+            <Separator Height="20"/>
+            <Button Name="Name_credits" Click="CreditsClick" FontSize="36">Credits</Button>
+            <Separator Height="20"/>
+            <Button Name="Name_exit" Click="ExitClick" FontSize="36">Exit</Button>
         </StackPanel>
 
         <Frame x:Name="Name_frame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="3" Foreground="White"/>
