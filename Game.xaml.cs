@@ -1,4 +1,4 @@
-п»їusing System;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,16 +45,16 @@ namespace DiplomaLol {
         }
         #endregion
 
-        // РЎС‚Р°СЂС‚РѕРІС‹Рµ Р·РЅР°С‡РµРЅРёСЏ
-        int AmountOfProducts = 5;   // РљРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂРѕРІ РёР·РЅР°С‡Р°Р»СЊРЅРѕ
-        int Cash = 2000;    // Р‘Р°Р»Р°РЅСЃ
-        int SizeOfStorage = 10; // Р Р°Р·РјРµСЂ С…СЂР°РЅРёР»РёС‰Р°
-        int Rent = 100; // РџР»Р°С‚Р° Р·Р° Р°СЂРµРЅРґСѓ
+        // Стартовые значения
+        int AmountOfProducts = 5;   // Количество товаров изначально
+        int Cash = 2000;    // Баланс
+        int SizeOfStorage = 10; // Размер хранилища
+        int Rent = 100; // Плата за аренду
         private int Price = 4;
         private int required = 0;
 
-        int Mod;    // РњРѕРґРёС„РёРєР°С‚РѕСЂ С†РµРЅС‹
-        int ModPrevious;    // РњРѕРґРёС„РёРєР°С‚РѕСЂ С†РµРЅС‹ РїСЂРµРґС‹РґСѓС‰РµР№ РЅРµРґРµР»Рё РґР»СЏ РїСЃРµРІРґРѕСЂР°РЅРґРѕРјР°
+        int Mod;    // Модификатор цены
+        int ModPrevious;    // Модификатор цены предыдущей недели для псевдорандома
 
         public Game(int difficulty) {
 
@@ -65,21 +65,21 @@ namespace DiplomaLol {
             dt.Tick += new EventHandler(Dt_Tick);
             dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
             
-            Update();   // Update РЅР°С‡Р°Р»СЊРЅС‹С… Р·РЅР°С‡РµРЅРёР№ РґР»СЏ РёС… РёСЃС…РѕРґРЅРѕРіРѕ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ
+            Update();   // Update начальных значений для их исходного отображения
 
-            DataPoints = new ObservableCollection<DataPoint> {  // РљРѕР»Р»РµРєС†РёСЏ С‚РѕС‡РµРє РґР»СЏ РіСЂР°С„РёРєР°
-                new DataPoint(0, 4) // РќР°С‡Р°Р»СЊРЅР°СЏ С‚РѕС‡РєР° РіСЂР°С„РёРєР° РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ С†РµРЅРѕР№
+            DataPoints = new ObservableCollection<DataPoint> {  // Коллекция точек для графика
+                new DataPoint(0, 4) // Начальная точка графика в соответствии с ценой
             };
         }
-        void Dt_Tick(object sender, EventArgs e) {
+       	void Dt_Tick(object sender, EventArgs e) {
 
-            if (sw.IsRunning)   // РџРѕРєР° СЂР°Р±РѕС‚Р°РµС‚ СЃРµРєСѓРЅРґРѕРјРµСЂ
+            if (sw.IsRunning)   // Пока работает секундомер
             {
                 TimeSpan ts = sw.Elapsed;
                 days = ts.Seconds;
-                currentTime = $"{weeks} weeks {days} days"; // РћР±РЅРѕРІР»СЏРµРј РёР·РѕР±СЂР°Р¶РµРЅРёРµ РІСЂРµРјРµРЅРё СЃ РєР°Р¶РґС‹Рј С‚Р°РєС‚РѕРј
+                currentTime = $"{weeks} weeks {days} days"; // Обновляем изображение времени с каждым тактом
                 
-                if (ts.Seconds % 7 == 0 && ts.Seconds > 0) // РљСЂСѓРі РІС‹РїРѕР»РЅРµРЅРёСЏ С†РёРєР»Р° While РґР»СЏ РІСЂРµРјРµРЅРЅРѕР№ СЃРѕСЃС‚Р°РІР»СЏСЋС‰РµР№
+                if (ts.Seconds % 7 == 0 && ts.Seconds > 0) // Круг выполнения цикла While для временной составляющей
                 {
                     weeks += 1;
                     sw.Restart();
@@ -89,60 +89,63 @@ namespace DiplomaLol {
             }
         }
 
-        private void Update()   // РћР±РЅРѕРІР»РµРЅРёРµ РёРЅС‚РµСЂС„РµР№СЃР° РЅР° СЌРєСЂР°РЅРµ
+        private void Update()   // Обновление интерфейса на экране
         {
-            //-----Р’С‹РІРѕРґ СЃС‚Р°С‚РёСЃС‚РёРєРё РЅР° СЃСЂРµРґРЅСЋСЋ РїР°РЅРµР»СЊ-----
+            //-----Вывод статистики на среднюю панель-----
             storageinfo.Text = $"Products storaged: {AmountOfProducts} \nSize of Storage: {SizeOfStorage}\nRequirements: {required}"; 
             cashinfo.Text = $"Rent: {Rent}; Price: {Price*50}.";
-            progressBar.Minimum = 0;                // РР»Р»СЋСЃС‚СЂР°С†РёСЏ
-            progressBar.Maximum = SizeOfStorage;    // РќР°РїРѕР»РЅРµРЅРЅРѕСЃС‚Рё
-            progressBar.Value = AmountOfProducts;   // РЎРєР»Р°РґР°
+            progressBar.Minimum = 0;                // Иллюстрация
+            progressBar.Maximum = SizeOfStorage;    // Наполненности
+            progressBar.Value = AmountOfProducts;   // Склада
             
-            slidersell.Maximum = AmountOfProducts;  // РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР°Р»СЊРЅРѕСЃС‚СЊ СЃР»Р°Р№РґРµСЂР° РґР»СЏ РїСЂРѕРґР°Р¶Рё
+            slidersell.Maximum = AmountOfProducts;  // Максимальная дальность слайдера для продажи
 
-            cashtxtblock.Text = $"$ {Cash}";    // Р’С‹РІРѕРґ С‚РµРєСѓС‰РµРіРѕ Р±Р°Р»Р°РЅСЃР° РЅР° РЅРёР¶РЅРµР№ РїР°РЅРµР»Рё
-            clocktxtblock.Text = currentTime;   // Р’С‹РІРѕРґ С‚РµРєСѓС‰РµРіРѕ РІСЂРµРјРµРЅРё РЅР° РЅРёР¶РЅРµР№ РїР°РЅРµР»Рё
+            cashtxtblock.Text = $"$ {Cash}";    // Вывод текущего баланса на нижней панели
+            clocktxtblock.Text = currentTime;   // Вывод текущего времени на нижней панели
 
         }
 
-        private void Startbtn_Click(object sender, RoutedEventArgs e) { // РџРѕ РЅР°Р¶Р°С‚РёСЋ РєРЅРѕРїРєРё РЎС‚Р°СЂС‚ РЅР°С‡РёРЅР°РµС‚СЃСЏ РёРіСЂРѕРІРѕР№ РїСЂРѕС†РµСЃСЃ
+        private void Startbtn_Click(object sender, RoutedEventArgs e) { // По нажатию кнопки Старт начинается игровой процесс
             sw.Start();
             dt.Start();
         }
 
-        private void Stopbtn_Click(object sender, RoutedEventArgs e) {  // РњРѕР¶РЅРѕ РЅР°Р¶Р°С‚СЊ РЅР° РџР°СѓР·Сѓ, С‡С‚Рѕ Р±РѕР»РµРµ РєРѕСЂСЂРµРєС‚РЅРѕРіРѕ РѕР±РґСѓРјС‹РІР°РЅРёСЏ
+        private void Stopbtn_Click(object sender, RoutedEventArgs e) {  // Можно нажать на Паузу, что более корректного обдумывания
             if (sw.IsRunning) {
                 sw.Stop();
             }
         }
 
-        private void IncreaseSize(object sender, RoutedEventArgs e) {   // РЈРІРµР»РёС‡РµРЅРёРµ СЂР°Р·РјРµСЂР° СЃРєР»Р°РґР°
+        private void IncreaseSize(object sender, RoutedEventArgs e) {   // Увеличение размера склада
             if (SizeOfStorage < 40) {
                 SizeOfStorage += 10;
-                Rent *= 2;
-                Cash -= 250;
-                rectanglestorage.Width += 100;
+                Rent += 150;
+                Cash -= 200;
+                rectanglestorage.Width += 80;
+                Update();
             }
         }
         
-        private void DecreaseSize(object sender, RoutedEventArgs e) {   // РЈРјРµРЅСЊС€РµРЅРёРµ СЂР°Р·РјРµСЂР° СЃРєР»Р°РґР°
+        private void DecreaseSize(object sender, RoutedEventArgs e) {   // Уменьшение размера склада
             if (SizeOfStorage > 10) {
                 SizeOfStorage -= 10;
-                Rent /= 2;
+                if (AmountOfProducts > SizeOfStorage) AmountOfProducts = SizeOfStorage;
+                Rent -= 150;
                 Cash += 150;
-                rectanglestorage.Width -= 100;
+                rectanglestorage.Width -= 80;
+                Update();
             }
         }
         
         private void EndOfWeek() {
-            Cash -= Rent;   // Р Р°СЃС…РѕРґС‹ РЅР° Р°СЂРµРЅРґСѓ
-            Economy();  // Р Р°СЃС‡РµС‚ СЌРєРѕРЅРѕРјРёРєРё РґР»СЏ СЃР»РµРґСѓСЋС‰РµР№ РЅРµРґРµР»Рё
+            Cash -= Rent;   // Расходы на аренду
+            Economy();  // Расчет экономики для следующей недели
         }
 
         private void Buy(object sender, RoutedEventArgs e) {
             if (AmountOfProducts + (int)sliderincome.Value > SizeOfStorage) {
                 sw.Stop();
-                MessageBox.Show("РЈРІРµР»РёС‡СЊС‚Рµ СЂР°Р·РјРµСЂ СЃРєР»Р°РґР°. РќРµ РїРѕРјРµС‰Р°РµС‚СЃСЏ.");
+                MessageBox.Show("Увеличьте размер склада. Не помещается.");
             } else {
                 AmountOfProducts += (int)sliderincome.Value;
                 Cash -= Price * 50 * (int)sliderincome.Value;

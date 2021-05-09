@@ -9,14 +9,14 @@
       Title="Game">
 
     <Page.Background>
-        <ImageBrush ImageSource="/images/back.jpg" Stretch="UniformToFill"></ImageBrush>
+        <ImageBrush ImageSource="/images/light_back.jpg" Stretch="UniformToFill"></ImageBrush>
     </Page.Background>
     
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition MinWidth="400"/>
+            <ColumnDefinition MinWidth="300"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         
@@ -26,23 +26,23 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock FontSize="35" HorizontalAlignment="Center" Grid.Column="1">Storage Management</TextBlock>
+        <TextBlock Margin="0,20,0,0"  FontSize="30" HorizontalAlignment="Center" Grid.Column="1">Storage Management</TextBlock>
 
         <!-- ЛЕВАЯ ЧАСТЬ -->
-        <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">    
-            <TextBlock Text="Количество товара для закупки" FontSize="18"/>
+        <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" TextBlock.TextAlignment="Center">    
+            <TextBlock Text="Количество товара для закупки" TextWrapping="Wrap" FontSize="20"/>
             <DockPanel VerticalAlignment="Center" Margin="10">
                 <TextBox Text="{Binding ElementName=sliderincome, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" />
-                <Slider x:Name="sliderincome" Minimum="1" Maximum="10" Width="200" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                <Slider x:Name="sliderincome" Minimum="1" Maximum="10" Width="230" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
             </DockPanel>
-            <Button x:Name="order" Click="Buy" Content="Buy" MaxWidth="100" FontSize="20"/>
-
-            <TextBlock Text="Количество товара для продажи" FontSize="18"/>
+            <Button x:Name="order" Click="Buy" Content="Купить" FontWeight="Bold" MaxWidth="100" FontSize="20"/>
+            <Separator Height="30"/>
+            <TextBlock Text="Количество товара для продажи" TextWrapping="Wrap" FontSize="20"/>
             <DockPanel VerticalAlignment="Center" Margin="10">
                 <TextBox Text="{Binding ElementName=slidersell, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" />
-                <Slider x:Name="slidersell" Minimum="0" Width="200" IsSnapToTickEnabled="True"/>
+                <Slider x:Name="slidersell" Minimum="0" Width="230" IsSnapToTickEnabled="True"/>
             </DockPanel>
-            <Button x:Name="sell" Click="Sell" Content="Sell" MaxWidth="100" FontSize="20"/>
+            <Button x:Name="sell" Click="Sell" Content="Продать" FontWeight="Bold" MaxWidth="100" FontSize="20"/>
 
         </StackPanel>
 
@@ -55,17 +55,18 @@
 
         <Rectangle x:Name="rectanglestorage" Fill="LightGray" Width="100" Height="170" RadiusX="15" RadiusY="15" Grid.Column="1" Grid.Row="1"/>
         <ProgressBar x:Name="progressBar"  Orientation="Vertical" Grid.Column="1" Grid.Row="1" Height="150"
+                     Background="LightGray"
                      Width="{Binding ElementName=rectanglestorage, Path=Width, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,30">
-            <Button x:Name="decreasebtn" Click="DecreaseSize" Content="Decrease" FontSize="20" MinWidth="90"/>
-            <Separator Width="20"/>
-            <Button x:Name="increasebtn" Click="IncreaseSize" Content="Increase" FontSize="20" MinWidth="90"/>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,30" TextBlock.FontWeight="Bold">
+            <Button x:Name="decreasebtn" Click="DecreaseSize" Content="Уменьшить" FontSize="20" MinWidth="90"/>
+            <Separator Width="40"/>
+            <Button x:Name="increasebtn" Click="IncreaseSize" Content="Увеличить" FontSize="20" MinWidth="90"/>
         </StackPanel>
 
         
         <!-- ПРАВАЯ ЧАСТЬ-->
-        <StackPanel Grid.Row="1" Grid.Column="2">
+        <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">
             <oxy:Plot Name="plot" Title="Graph of Price" Background="{x:Null}" Height="200">
                 <oxy:Plot.Axes>
                     <oxy:LinearAxis Position="Left" Minimum="0"/>
@@ -83,9 +84,9 @@
             <Button x:Name="startbtn" Content="Start" FontSize="30" Click="Startbtn_Click" MinWidth="80" ></Button>
             <Separator Width="20"/>
             <Button x:Name="stopbtn" Content="Stop" FontSize="30" Click="Stopbtn_Click" MinWidth="80"></Button>
-            <Separator Width="20"/>
+            <Separator Width="30"/>
             <TextBlock x:Name="clocktxtblock" FontSize="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="250"></TextBlock>
-            <Separator Width="20"/>
+            <Separator Width="30"/>
             <TextBlock x:Name="cashtxtblock" FontSize="30" MinWidth="150"/>
         </StackPanel>
     </Grid>

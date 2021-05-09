@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:DiplomaLol">
 
-    <Style TargetType="Window">
+    <!--<Style TargetType="Window">
 
 <Setter Property="Foreground" Value="Blue"/>
         <Setter Property="FontFamily" Value="Comic Sans MS"/>
@@ -10,7 +10,7 @@
 
     </Style>
 
-    <!--<LinearGradientBrush x:Key="buttonBrush">
+    --><!--<LinearGradientBrush x:Key="buttonBrush">
         <GradientStopCollection>
             <GradientStop Color="White" Offset="0" />
             <GradientStop Color="Blue" Offset="1" />

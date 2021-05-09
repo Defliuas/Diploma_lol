@@ -23,35 +23,34 @@ namespace DiplomaLol
             Price += Mod;   // Меняем цену на новую
             ModPrevious = Mod;  // Перезаписываем Модификатор для следующего цикла
 
-            if (required < 0)
+            if (required < -1)
             {
-                Price -= 1; // Если продали больше требуемых товаров - переполнение рынка - снижение цены
+                Price -= 2; // Если продали больше требуемых товаров - переполнение рынка - снижение цены
             } else if (required == 0)
             {
                 Price += 1; // Если продали идеально, то награждается увеличением стоимости на 1
             }
-            else
+            else if (required > 0)
             {
                 Price += rand.Next(-1, 2); // Назначается случайный штраф, который равен либо повышению цены из-за недостатка товаров
                 // Или штраф за неудовлетворение потребностей, который снижает на 1 ценность
             }
 
-            required = rand.Next(0, 4);
+            required = rand.Next(0, 5);
 
-            if (weeks % 8 == 0)
+            if (weeks % 16 == 0)
+            {
+                Price /= 2;
+            } 
+            else if (weeks % 8 == 0)
             {
                 Price -= Mod;
                 Price += 3;
             }
 
-            if (weeks % 16 == 0)
-            {
-                Price /= 2;
-            }
-
             if (Price <= 0)  // Проверка на отрицательную стоимость
             {
-                Price = 2;
+                Price = 3;
                 ModPrevious = 0;
             }
             
@@ -69,7 +68,7 @@ namespace DiplomaLol
             {
                 sw.Stop();
                 MessageBox.Show("Поздравляю. Вы справились с задачей. \nНажмите Ок, чтобы закрыть приложение");
-            //  this.Visibility = Visibility.Collapsed;
+                this.Visibility = Visibility.Collapsed;
                 Application.Current.Shutdown();
             }
         }
