@@ -1,25 +1,35 @@
 ﻿using System.Windows;
 
-namespace DiplomaLol {
+namespace DiplomaLol
+{
 
-    public partial class Difficulty : Window {
+    public partial class Difficulty : Window
+    {
         public int Diff { get; set; }
-        public Difficulty() {
+        public Difficulty()
+        {
             InitializeComponent();
         }
 
-        private void Setup_difficult(object sender, RoutedEventArgs e) {
-            if (radbut1.IsChecked == true) {
+        private void Setup_difficult(object sender, RoutedEventArgs e)
+        {
+            if (radbut1.IsChecked == true)
+            {
                 Diff = 2;
-            } else if (radbut2.IsChecked == true) {
+            }
+            else if (radbut2.IsChecked == true)
+            {
                 Diff = 4;
-            } else {
+            }
+            else
+            {
                 Diff = 6;
             }
             DialogResult = true;
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e) {
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
             DialogResult = false;
         }
 

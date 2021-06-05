@@ -64,7 +64,7 @@ namespace DiplomaLol
                 this.Visibility = Visibility.Collapsed;
             }
 
-            if (Cash >= 8000) // Условие победы
+            if (Cash >= 2000) // Условие победы
             {
                 sw.Stop();
                 MessageBox.Show("Поздравляю. Вы справились с задачей. \nНажмите Ок, чтобы закрыть приложение");
